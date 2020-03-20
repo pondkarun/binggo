@@ -1,5 +1,7 @@
-﻿<div>
-    <label>User : </label>
-    <input type="text" name="user" ng-model="model.user">
-    <button ng-click="send()">send</button>
+﻿<div ng-controller="loginController as ctrl" class="main">
+    <form name="loginForm" class="text-center">
+        <label>User : </label>
+        <input type="text" name="user" ng-model="ctrl.model.user" required>
+        <button ng-click="send()">Send</button>
+    </form>
 </div>

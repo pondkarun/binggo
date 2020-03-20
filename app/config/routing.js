@@ -1,42 +1,42 @@
-﻿app.config(function ($routeProvider, $locationProvider) {
+﻿app.config(function($routeProvider, $locationProvider) {
     // $locationProvider.html5Mode(true);
     $routeProvider
         .when('/', {
-            templateUrl: webConfig.client + 'app/view/login.html',
+            templateUrl: './app/view/login.html',
             controller: 'loginController'
         })
         .when('/login', {
-            templateUrl: webConfig.client + 'app/view/login.html',
+            templateUrl: './app/view/login.html',
             controller: 'loginController'
         })
         .when('/room', {
-            templateUrl: webConfig.client + 'app/view/playroom.html',
+            templateUrl: './app/view/room.html',
             controller: 'roomController',
             resolve: {
                 factory: checkPermisstion
             }
         })
         .when('/playroom', {
-            templateUrl: webConfig.client + 'app/view/playroom.html',
+            templateUrl: './app/view/playroom.html',
             controller: 'playroomController',
-              resolve: {
-                  factory: checkPermisstion
+            resolve: {
+                factory: checkPermisstion
             }
         })
-      
-        .otherwise({
-            redirectTo: '/'
-        });
+
+    .otherwise({
+        redirectTo: '/'
+    });
 
 });
-var checkPermisstion = function ($q, $location, $timeout) {
+var checkPermisstion = function($q, $location, $timeout) {
     var per = sessionStorage.user;
     var deferred = $q.defer();
     if (per) {
-        $timeout(function () {
-            deferred.resolve(true);
-        }, 2000);
-
+        // $timeout(function() {
+        //     deferred.resolve(true);
+        // }, 2000);
+        deferred.resolve(true);
     } else {
         deferred.reject();
         $location.path("/login");

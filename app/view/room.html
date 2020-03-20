@@ -1,6 +1,9 @@
-﻿<div>
-    <select ng-model="model.room">
-        <option ng-repeat="i in room"></option> 
-    </select>
-    <button ng-click="select()"> Select Room </button>
+﻿<div ng-controller="roomController as ctrl" class="main" ng-init="ctrl.init()">
+    <form name="roomForm" class="text-center">
+        <select ng-model="ctrl.model.room" required>
+            <option value="">เลือกห้อง</option> 
+            <option ng-repeat="i in room" value="{{i.id}}">{{i.name_room}}</option> 
+        </select>
+        <button ng-click="select()"> Select Room </button>
+    </form>
 </div>
