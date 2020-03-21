@@ -30,7 +30,7 @@
 
 });
 var checkPermisstion = function($q, $location, $timeout) {
-    var per = sessionStorage.user;
+    var per = sessionStorage.getItem("player")
     var deferred = $q.defer();
     if (per) {
         // $timeout(function() {

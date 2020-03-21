@@ -1,4 +1,4 @@
-﻿app.controller('roomController', function($scope, $location, $http) {
+﻿app.controller('roomController', function($scope, $location, $http, playerService, roomService) {
     _this = this;
     $scope.room = [];
     this.model = {
@@ -10,13 +10,25 @@
         getRoom();
     }
 
-    $scope.select = () => {
-        if ($scope.roomForm.$valid) {
-            console.log("this.model", this.model);
-
-            // sessionStorage.room = $scope.model.room;
-            // $location.path("/playroom");
+    $scope.select = (id) => {
+        // console.log("id", id);
+        this.model = {
+            id_room: id,
+            id_player: playerService.getIdPlayer()
         }
+        loading.open();
+        $http.post(webConfig.webApi + "playerAccRoom/addPlayerAccRoomService.php", this.model).then((res) => {
+            console.log("res.data", res.data);
+            loading.close();
+            if (res.data.status == "200") {
+                roomService.saveData(res.data)
+                $location.path("/playroom");
+            } else {
+                alert("Error")
+            }
+        }).catch((err) => {
+            alert("Error")
+        })
     }
 
     const getRoom = () => {

@@ -7,15 +7,17 @@ header('Access-Control-Allow-Headers: *');
 $input = file_get_contents('php://input');
 $postRequest = json_decode($input);
 
-$user = @$postRequest->user;
+$id_room = @$postRequest->id_room;
+$id_player = @$postRequest->id_player;
 $resultObj = new \stdClass();
 
-if ($user) {
-    $sql = "INSERT INTO player  ( `user` ) VALUES ( '".$user."')";
+if ($id_room && $id_player) {
+    $sql = "INSERT INTO player_acc_room  ( `id_room` , `id_player`) VALUES ( '".$id_room."' , '".$id_player."')";
     $result = mysqli_query($condb, $sql);
     $last_id = mysqli_insert_id($condb); // คืนค่า id ที่ insert ล่าสุด
     $resultObj->status = '200';
-    $resultObj->id_player = $last_id;
+    $resultObj->id = $last_id;
+    $resultObj->id_room = $id_room;
     print_r(json_encode($resultObj));
 } else {
     $$resultObj->status = '500';

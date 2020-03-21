@@ -1,9 +1,32 @@
 ﻿<div ng-controller="roomController as ctrl" class="main" ng-init="ctrl.init()">
-    <form name="roomForm" class="text-center">
+    <div class="container">
+        <table class="table table-bordered">
+            <thead class="thead-light">
+                <tr class="text-center">
+                    <th width="">#</th>
+                    <th width="">Name</th>
+                    <th width="">Player</th>
+                    <th width="">Select Room</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="text-center" ng-repeat="i in room">
+                    <th>{{$index + 1}}</th>
+                    <td>{{i.name_room}}</td>
+                    <td>{{i.COUNT_PAR | number}} คน</td>
+                    <td>
+                        <a href="" ng-click="select(i.id)">Select</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- <form name="roomForm" class="text-center">
         <select ng-model="ctrl.model.room" required>
             <option value="">เลือกห้อง</option> 
             <option ng-repeat="i in room" value="{{i.id}}">{{i.name_room}}</option> 
         </select>
         <button ng-click="select()"> Select Room </button>
-    </form>
+    </form> -->
 </div>

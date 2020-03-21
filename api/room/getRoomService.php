@@ -8,7 +8,9 @@ header('Access-Control-Allow-Headers: Access-Control-Allow-Headers,Content-Type,
 
 try {
     $data = array();
-    $query = "SELECT * FROM `room` WHERE is_use = '1' ORDER BY `name_room` ASC";
+    $query = "SELECT * ,
+    (SELECT COUNT(id)  FROM `player_acc_room` WHERE id_room = r.id) AS COUNT_PAR
+    FROM `room` AS r WHERE r.is_use = '1' ORDER BY r.name_room ASC";
     $result = $condb->query($query) or die($condb->error);
 
     while ($row = $result->fetch_assoc()) {
