@@ -1,12 +1,13 @@
-﻿app.controller('playroomController', function($scope, $location) {
+﻿app.controller('playroomController', function($scope, $location, $http, roomService) {
 
     $scope.numAll = [];
     $scope.myTable = [];
     this.init = () => {
-        let numAllLength = 75;
-        for (let x = 1; x <= numAllLength; x++) {
+        let maxLength = 75;
+        for (let x = 1; x <= maxLength; x++) {
             $scope.numAll.push(x)
         }
+        getPlayer()
     }
 
     $scope.vote = function() {
@@ -40,8 +41,22 @@
         // console.log("tablenum", $scope.tablenum);
         // console.log("myTable", $scope.myTable);
     }
+
     $scope.select = function() {
 
+    }
+
+    const getPlayer = () => {
+        loading.open();
+        let IdRoom = roomService.getIdRoom();
+        $http.post(webConfig.webApi + "playerAccRoom/getPlayerAccRoomService.php", IdRoom).then((res) => {
+            console.log("res.data", res.data);
+            $scope.player = res.data
+            loading.close();
+        }).catch((err) => {
+            console.log("Error");
+            loading.close();
+        })
     }
 
 });

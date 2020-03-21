@@ -10,13 +10,11 @@
             <div class="col-2 text-left">
                 <h3 class="text-center pb-2"><u>รายชื่อ</u></h3>
                 <ul>
-                    <li>Pond</li>
-                    <li>Pond</li>
-                    <li>Pond</li>
-                    <li>Pond</li>
-                    <li>Pond</li>
+                    <li ng-repeat="i in player">{{i.user}}</li>
+
                 </ul>
             </div>
+
             <div class="col-10">
                 <table class="table table-bordered">
                     <thead class="thead-light">
@@ -24,8 +22,8 @@
                             <th colspan="5" style="padding: 20px; font-size: 50px;">BINGO</th>
                         </tr>
                     </thead>
-                    <tr ng-repeat="i in myTable">
-                        <td ng-repeat="x in i">{{x}}</td>
+                    <tr ng-repeat="item in myTable">
+                        <td ng-repeat="x in item">{{x}}</td>
                     </tr>
 
                     <tr ng-if="myTable.length == 0">
