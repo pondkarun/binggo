@@ -1,46 +1,66 @@
-﻿<div>
-    <div>
-        <button ng-click="vote()"> Vote Ready </button>
-        <button ng-click="random()"> New Random </button>
-        <button ng-click="select()"> Select </button>
-    </div>
-    <div>
-        <table style="width:100%">
-            <tr>
-                <td>1</td>
-                <td>2</td>
-                <td>3</td>
-                <td>4</td>
-                <td>5</td>
-            </tr>
-            <tr>
-                <td>6</td>
-                <td>7</td>
-                <td>8</td>
-                <td>9</td>
-                <td>10</td>
-            </tr>
-            <tr>
-                <td>11</td>
-                <td>12</td>
-                <td>13</td>
-                <td>14</td>
-                <td>15</td>
-            </tr>
-            <tr>
-                <td>16</td>
-                <td>17</td>
-                <td>18</td>
-                <td>19</td>
-                <td>20</td>
-            </tr>
-            <tr>
-                <td>21</td>
-                <td>22</td>
-                <td>23</td>
-                <td>24</td>
-                <td>25</td>
-            </tr>
-        </table>
-    </div>
+﻿<div ng-controller="playroomController as ctrl" class="main" ng-init="ctrl.init()">
+
+    <section class="container text-center">
+        <div class="row">
+            <div class="col-2 text-left">
+                <h3 class="text-center pb-2"><u>รายชื่อ</u></h3>
+                <ul>
+                    <li>Pond</li>
+                    <li>Pond</li>
+                    <li>Pond</li>
+                    <li>Pond</li>
+                    <li>Pond</li>
+                </ul>
+            </div>
+            <div class="col-10">
+                <table class="table table-bordered">
+                    <thead class="thead-light">
+                        <tr>
+                            <th colspan="5" style="padding: 20px; font-size: 50px;">BINGO</th>
+                        </tr>
+                    </thead>
+                    <tr>
+                        <td>1</td>
+                        <td>2</td>
+                        <td>3</td>
+                        <td>4</td>
+                        <td>5</td>
+                    </tr>
+                    <tr>
+                        <td>6</td>
+                        <td>7</td>
+                        <td>8</td>
+                        <td>9</td>
+                        <td>10</td>
+                    </tr>
+                    <tr>
+                        <td>11</td>
+                        <td>12</td>
+                        <td>13</td>
+                        <td>14</td>
+                        <td>15</td>
+                    </tr>
+                    <tr>
+                        <td>16</td>
+                        <td>17</td>
+                        <td>18</td>
+                        <td>19</td>
+                        <td>20</td>
+                    </tr>
+                    <tr>
+                        <td>21</td>
+                        <td>22</td>
+                        <td>23</td>
+                        <td>24</td>
+                        <td>25</td>
+                    </tr>
+                </table>
+                <div class="p-3">
+                    <button ng-click="vote()"> Vote Ready </button>
+                    <button ng-click="random()"> New Random </button>
+                    <button ng-click="select()"> Select </button>
+                </div>
+            </div>
+        </div>
+    </section>
 </div>
