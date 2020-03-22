@@ -1,10 +1,15 @@
-﻿app.controller('playroomController', function($scope, $location, $http, roomService, playRoomService) {
+﻿app.controller('playroomController', function($scope, $location, $http, roomService, playRoomService, playerService) {
 
     $scope.numAll = [];
     $scope.myTable = [];
     $scope.tablenum = [];
-    $scope.voteReady = `Not Ready`
-    $scope.readyOrNot = false
+    $scope.model = {
+        id_room: roomService.getIdRoom(),
+        id_player: playerService.getIdPlayer(),
+        readyOrNot: null,
+        status: null
+    };
+
     this.init = () => {
         let maxLength = 75;
         for (let x = 1; x <= maxLength; x++) {
@@ -17,19 +22,23 @@
             }
         }
         getPlayer();
+        getMe();
         tableBingo();
     }
 
     $scope.vote = function() {
 
-        $scope.readyOrNot = !$scope.readyOrNot
-        if ($scope.readyOrNot) {
-            $scope.voteReady = `Ready`
-            console.log("numAll", $scope.numAll);
+        $scope.model.readyOrNot = !$scope.model.readyOrNot
+        $scope.model.status = ($scope.model.readyOrNot == true) ? "true" : "false";
+        if ($scope.model.readyOrNot) {
+            $scope.voteReady = `Ready`;
         } else {
             $scope.voteReady = `Not Ready`
         };
-
+        $http.post(webConfig.webApi + "playerAccRoom/readyOrNotService.php", $scope.model).then((res) => {
+            console.log("res.data", res.data);
+        });
+        // console.log("numAll", $scope.numAll);
     }
 
     $scope.random = function() {
@@ -119,6 +128,32 @@
                 $scope.player = res.data
             })
         }, 1960);
+    }
+
+    const getMe = () => {
+        $http.post(webConfig.webApi + "playerAccRoom/getMePARService.php", $scope.model).then((res) => {
+            // console.log("res.data", res.data);
+            $scope.model.status = res.data.status;
+            $scope.model.readyOrNot = (res.data.status == "true") ? true : false;
+            if ($scope.model.readyOrNot) {
+                $scope.voteReady = `Ready`
+            } else {
+                $scope.voteReady = `Not Ready`
+            };
+        });
+        // setInterval(function() {
+
+        //     $http.post(webConfig.webApi + "playerAccRoom/getMePARService.php", $scope.model).then((res) => {
+        //         // console.log("res.data", res.data);
+        //         $scope.model.status = res.data.status;
+        //         $scope.model.readyOrNot = (res.data.status == "true") ? true : false;
+        //         if ($scope.model.readyOrNot) {
+        //             $scope.voteReady = `Ready`
+        //         } else {
+        //             $scope.voteReady = `Not Ready`
+        //         };
+        //     });
+        // }, 3000);
     }
 
 });

@@ -23,7 +23,7 @@
             <div class="col-2 text-left">
                 <h3 class="text-center pb-2"><u>รายชื่อ</u></h3>
                 <ul>
-                    <li ng-repeat="i in player">{{i.user}} <i class="fas fa-circle-notch fa-spin"></i> <i class=" fas fa-check-circle text-green"></i></li>
+                    <li ng-repeat="i in player">{{i.user}} <i class="fas fa-circle-notch fa-spin" ng-if="i.status == 'false'"></i> <i class="fas fa-check-circle text-green" ng-if="i.status == 'true'"></i></li>
 
                 </ul>
             </div>
@@ -78,10 +78,10 @@
                 </table>
                 <div class="p-3">
 
-                    <input class="tgl tgl-flip" id="Ready" type="checkbox" ng-model="readyOrNot" ng-click="vote()">
+                    <input class="tgl tgl-flip" id="Ready" type="checkbox" ng-model="model.readyOrNot" ng-click="vote()">
                     <label class="tgl-btn" data-tg-off="{{voteReady}}" data-tg-on="{{voteReady}}" for="Ready"></label>
 
-                    <button ng-click="random()"> New Random </button>
+                    <button ng-click="random()"> Random </button>
                     <button ng-click="select()"> Select </button>
                 </div>
             </div>

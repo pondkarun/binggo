@@ -11,6 +11,7 @@ try {
     $data = array();
     $query = "SELECT 
     par.id,
+    par.status,
     par.id_room,
     p.user
     FROM player_acc_room AS par 

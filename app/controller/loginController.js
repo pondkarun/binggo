@@ -15,6 +15,7 @@
                 }
             }).catch((err) => {
                 alert("Error")
+                loading.close();
             })
         }
     }
