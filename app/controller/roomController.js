@@ -16,13 +16,26 @@
             id_room: id,
             id_player: playerService.getIdPlayer()
         }
+        if (roomService.SessionRoom()) {
+            if (roomService.SessionRoom().id_room == id) {
+                goRoom()
+            } else {
+                saveRoom()
+            }
+        } else {
+            saveRoom()
+        }
+    }
+
+
+    const saveRoom = () => {
         loading.open();
         $http.post(webConfig.webApi + "playerAccRoom/addPlayerAccRoomService.php", this.model).then((res) => {
-            console.log("res.data", res.data);
+            // console.log("res.data", res.data);
             loading.close();
             if (res.data.status == "200") {
                 roomService.saveData(res.data)
-                $location.path("/playroom");
+                goRoom()
             } else {
                 alert("Error")
             }
@@ -31,15 +44,20 @@
         })
     }
 
+    const goRoom = () => {
+        $location.path("/playroom");
+    }
+
     const getRoom = () => {
-        loading.open();
+
         $http.get(webConfig.webApi + "room/getRoomService.php").then((res) => {
-            // console.log("res.data", res.data);
             $scope.room = res.data
-            loading.close();
-        }).catch((err) => {
-            console.log("Error");
-            loading.close();
         })
+
+        setInterval(function() {
+            $http.get(webConfig.webApi + "room/getRoomService.php").then((res) => {
+                $scope.room = res.data
+            })
+        }, 1500);
     }
 });
