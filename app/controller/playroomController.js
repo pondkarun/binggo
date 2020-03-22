@@ -3,6 +3,8 @@
     $scope.numAll = [];
     $scope.myTable = [];
     $scope.tablenum = [];
+    $scope.voteReady = `Ready`
+    $scope.demo = true
     this.init = () => {
         let maxLength = 75;
         for (let x = 1; x <= maxLength; x++) {
@@ -108,7 +110,7 @@
                 // console.log("res.data", res.data);
                 $scope.player = res.data
             })
-        }, 1500);
+        }, 1960);
     }
 
 });
