@@ -3,8 +3,8 @@
     $scope.numAll = [];
     $scope.myTable = [];
     $scope.tablenum = [];
-    $scope.voteReady = `Ready`
-    $scope.demo = true
+    $scope.voteReady = `Not Ready`
+    $scope.readyOrNot = false
     this.init = () => {
         let maxLength = 75;
         for (let x = 1; x <= maxLength; x++) {
@@ -21,7 +21,15 @@
     }
 
     $scope.vote = function() {
-        console.log("numAll", $scope.numAll);
+
+        $scope.readyOrNot = !$scope.readyOrNot
+        if ($scope.readyOrNot) {
+            $scope.voteReady = `Ready`
+            console.log("numAll", $scope.numAll);
+        } else {
+            $scope.voteReady = `Not Ready`
+        };
+
     }
 
     $scope.random = function() {
