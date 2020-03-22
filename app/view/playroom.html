@@ -78,11 +78,11 @@
                 </table>
                 <div class="p-3">
 
-                    <input class="tgl tgl-flip" id="Ready" type="checkbox" ng-model="model.readyOrNot" ng-click="vote()">
-                    <label class="tgl-btn" data-tg-off="{{voteReady}}" data-tg-on="{{voteReady}}" for="Ready"></label>
+                    <input class="tgl tgl-flip" id="Ready" type="checkbox" ng-model="model.readyOrNot" ng-click="vote()" ng-if="!is_show">
+                    <label class="tgl-btn" data-tg-off="{{voteReady}}" data-tg-on="{{voteReady}}" for="Ready" ng-if="!is_show"></label>
 
-                    <button ng-click="random()"> Random </button>
-                    <button ng-click="select()"> Select </button>
+                    <button ng-click="random()" ng-if="is_show"> Random </button>
+                    <button ng-click="select()" ng-if="is_show"> Select </button>
                 </div>
             </div>
         </div>

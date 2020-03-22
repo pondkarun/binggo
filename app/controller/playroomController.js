@@ -3,6 +3,7 @@
     $scope.numAll = [];
     $scope.myTable = [];
     $scope.tablenum = [];
+    $scope.is_show = true;
     $scope.model = {
         id_room: roomService.getIdRoom(),
         id_player: playerService.getIdPlayer(),
@@ -10,8 +11,10 @@
         status: null
     };
 
+
+
     this.init = () => {
-        let maxLength = 75;
+        let maxLength = 75; //จำนวน สูงสุด
         for (let x = 1; x <= maxLength; x++) {
             $scope.numAll.push(x)
         }
@@ -19,6 +22,7 @@
             if (playRoomService.SessionPlayRoom().id_par == roomService.getId()) {
                 setMyTable(playRoomService.SessionPlayRoom().number);
                 $scope.tablenum = playRoomService.SessionPlayRoom().number
+                $scope.is_show = false;
             }
         }
         getPlayer();
@@ -57,6 +61,7 @@
             }
         }
         setMyTable($scope.tablenum);
+        tableBingo();
         // console.log("tablenum", $scope.tablenum);
         // console.log("myTable", $scope.myTable);
     }
@@ -79,8 +84,10 @@
                 console.log("Error");
                 loading.close();
             })
+            $scope.is_show = false;
         } else {
             alert("New Random")
+            $scope.is_show = true;
         }
 
     }
