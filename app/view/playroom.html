@@ -3,6 +3,11 @@
         height: 60px;
         width: 60px;
     }
+    
+    .red {
+        background-color: brown;
+        color: cornsilk;
+    }
 </style>
 <div ng-controller="playroomController as ctrl" class="main" ng-init="ctrl.init()">
     <section class="container text-center">
@@ -23,7 +28,7 @@
                         </tr>
                     </thead>
                     <tr ng-repeat="item in myTable">
-                        <td ng-repeat="x in item">{{x}}</td>
+                        <td ng-repeat="x in item" ng-class="{'red': x.is_find == true}">{{x.number}}</td>
                     </tr>
 
                     <tr ng-if="myTable.length == 0">

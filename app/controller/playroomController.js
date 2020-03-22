@@ -11,9 +11,11 @@
         if (playRoomService.SessionPlayRoom()) {
             if (playRoomService.SessionPlayRoom().id_par == roomService.getId()) {
                 setMyTable(playRoomService.SessionPlayRoom().number);
+                $scope.tablenum = playRoomService.SessionPlayRoom().number
             }
         }
         getPlayer();
+        tableBingo();
     }
 
     $scope.vote = function() {
@@ -66,12 +68,33 @@
 
     const setMyTable = (k) => {
         $scope.myTable = [
-            [k[0], k[1], k[2], k[3], k[4]],
-            [k[5], k[6], k[7], k[8], k[9]],
-            [k[10], k[11], k[12], k[13], k[14]],
-            [k[15], k[16], k[17], k[18], k[19]],
-            [k[20], k[21], k[22], k[23], k[24]]
+            [{ index: 0, is_find: false, number: k[0] }, { index: 1, is_find: false, number: k[1] }, { index: 2, is_find: false, number: k[2] }, { index: 3, is_find: false, number: k[3] }, { index: 4, is_find: false, number: k[4] }],
+            [{ index: 5, is_find: false, number: k[5] }, { index: 6, is_find: false, number: k[6] }, { index: 7, is_find: false, number: k[7] }, { index: 8, is_find: false, number: k[8] }, { index: 9, is_find: false, number: k[9] }],
+            [{ index: 10, is_find: false, number: k[10] }, { index: 11, is_find: false, number: k[11] }, { index: 12, is_find: false, number: k[12] }, { index: 13, is_find: false, number: k[13] }, { index: 14, is_find: false, number: k[14] }],
+            [{ index: 15, is_find: false, number: k[15] }, { index: 16, is_find: false, number: k[16] }, { index: 17, is_find: false, number: k[17] }, { index: 18, is_find: false, number: k[18] }, { index: 19, is_find: false, number: k[19] }],
+            [{ index: 20, is_find: false, number: k[20] }, { index: 21, is_find: false, number: k[21] }, { index: 22, is_find: false, number: k[22] }, { index: 23, is_find: false, number: k[23] }, { index: 24, is_find: false, number: k[24] }],
         ];
+    }
+
+    const tableBingo = () => {
+        let random = [24, 5, 9, 56, 78, 66, 33, 41, 30, 4]
+        let positionIndex = []
+        random.forEach(e => {
+            let where = $scope.tablenum.indexOf(e)
+            if (where != -1) {
+                positionIndex.push(where)
+            }
+        });
+
+        $scope.myTable.forEach(e => {
+            positionIndex.forEach(i => {
+                var filteredObj = e.find(x => x.index == i)
+                if (filteredObj) {
+                    filteredObj.is_find = true
+                }
+            })
+        })
+
     }
 
     const getPlayer = () => {
