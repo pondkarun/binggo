@@ -1,12 +1,30 @@
 ﻿<style>
     td {
-        height: 60px;
-        width: 60px;
+        height: 100px;
+        width: 100px;
+        vertical-align: middle;
     }
     
-    .red {
+    table,
+    td,
+    th {
+        border: 1px solid black;
+    }
+    
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+    
+    .bingo {
         background-color: brown;
         color: cornsilk;
+        border-radius: 65px;
+        width: 75px;
+        height: 75px;
+        text-align: center;
+        display: table-cell;
+        vertical-align: middle;
     }
     
     .text-red {
@@ -29,14 +47,21 @@
             </div>
 
             <div class="col-10">
-                <table class="table table-bordered">
+                <table>
                     <thead class="thead-light">
                         <tr>
                             <th colspan="5" style="padding: 20px; font-size: 50px;">BINGO</th>
                         </tr>
                     </thead>
                     <tr ng-repeat="item in myTable">
-                        <td ng-repeat="x in item" ng-class="{'red': x.is_find == true}">{{x.number}}</td>
+                        <td ng-repeat="x in item">
+                            <center>
+                                <div ng-class="{'bingo': x.is_find == true}">
+                                    {{x.number}}
+                                </div>
+                            </center>
+
+                        </td>
                     </tr>
 
                     <tr ng-if="myTable.length == 0">
