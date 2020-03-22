@@ -78,7 +78,7 @@
     -webkit-transform: rotateY(0);
     transform: rotateY(0);
     left: 0;
-    background: #7FC6A6;
+    background: green;
 }
 
 .tgl-flip:checked+.tgl-btn:active:after {
