@@ -18,7 +18,7 @@ if ($id_room && $id_player) {
     WHERE par.id_player = '".$id_player."' ";
     $result = $condb->query($sql);
     $row = mysqli_fetch_array($result);
-    $id_par = $row['id_par'];
+    @$id_par = $row['id_par'];
     $sql = "DELETE FROM `table_number` WHERE id_par  = '".$id_par."'";
     $result = mysqli_query($condb, $sql);
 

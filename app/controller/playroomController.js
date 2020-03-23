@@ -77,7 +77,8 @@
             console.log("modelTable", this.modelTable);
             loading.open();
             $http.post(webConfig.webApi + "tableNumber/selectTableNumberService.php", this.modelTable).then((res) => {
-                console.log("res.data", res.data);
+                // console.log("res.data", res.data);
+                res.data.number = JSON.parse(res.data.number)
                 playRoomService.saveData(res.data)
                 loading.close();
             }).catch((err) => {

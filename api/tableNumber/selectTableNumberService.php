@@ -9,20 +9,19 @@ $postRequest = json_decode($input);
 
 $id_par = @$postRequest->id_par;
 $number = @$postRequest->number;
-$countNumbe = count($number);
 
-for ($i = 0; $i < $countNumbe; ++$i) {
+if($id_par){
+    $number = json_encode($number);
     $sql = "INSERT INTO table_number
-    (
-        `id_par`,
-        `number`
-    )
-     VALUES
-     (
-        '".$id_par."',
-        '".$number[$i]."'
-    )";
-
+         (
+             `id_par`,
+             `number`
+         )
+          VALUES
+          (
+             '".$id_par."',
+             '".$number."'
+         )";
     $result = mysqli_query($condb, $sql) or die("Error in query: $sql".mysqli_error());
 }
 
