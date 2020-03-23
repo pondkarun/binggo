@@ -42,7 +42,10 @@
                 <h3 class="text-center pb-2"><u>รายชื่อ</u></h3>
                 <ul>
                     <li ng-repeat="i in player">{{i.user}} <i class="fas fa-circle-notch fa-spin" ng-if="i.status == 'false'"></i> <i class="fas fa-check-circle text-green" ng-if="i.status == 'true'"></i></li>
-
+                </ul>
+                <h3 class="text-center pb-2"><u>BINGO</u></h3>
+                <ul>
+                    <li ng-repeat="i in randomGame">{{i.game}} = {{i.number}}</li>
                 </ul>
             </div>
 
