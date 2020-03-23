@@ -1,4 +1,4 @@
-﻿app.controller('playroomController', function($scope, $location, $http, roomService, playRoomService, playerService) {
+app.controller('playroomController', function($scope, $location, $http, roomService, playRoomService, playerService) {
 
     $scope.numAll = [];
     $scope.myTable = [];
@@ -151,17 +151,6 @@
         });
         // setInterval(function() {
 
-        //     $http.post(webConfig.webApi + "playerAccRoom/getMePARService.php", $scope.model).then((res) => {
-        //         // console.log("res.data", res.data);
-        //         $scope.model.status = res.data.status;
-        //         $scope.model.readyOrNot = (res.data.status == "true") ? true : false;
-        //         if ($scope.model.readyOrNot) {
-        //             $scope.voteReady = `Ready`
-        //         } else {
-        //             $scope.voteReady = `Not Ready`
-        //         };
-        //     });
-        // }, 3000);
     }
 
 });
