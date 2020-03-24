@@ -1,4 +1,4 @@
-﻿app.controller('playroomController', function ($scope, $location, $http, roomService, playRoomService, playerService) {
+﻿app.controller('playroomController', function($scope, $location, $http, roomService, playRoomService, playerService) {
 
     $scope.numAll = [];
     $scope.randomGame = [];
@@ -23,7 +23,7 @@
         getNumberRoom()
     }
 
-    $scope.vote = function () {
+    $scope.vote = function() {
 
         $scope.model.readyOrNot = !$scope.model.readyOrNot
         $scope.model.status = ($scope.model.readyOrNot == true) ? "true" : "false";
@@ -38,7 +38,7 @@
         // console.log("numAll", $scope.numAll);
     }
 
-    $scope.random = function () {
+    $scope.random = function() {
         $scope.tablenum = [];
         $scope.myTable = [];
         var nums = angular.copy($scope.numAll);
@@ -118,7 +118,6 @@
                     $scope.is_show = false;
                 }
             }
-            tableBingo();
             getPlayer();
         }).catch((err) => {
             alert("Error")
@@ -136,7 +135,7 @@
             setGameBingo()
             getMe();
         })
-        setInterval(function () {
+        setInterval(function() {
             $http.post(webConfig.webApi + "playerAccRoom/getPlayerAccRoomService.php", IdRoom).then((res) => {
                 // console.log("res.data", res.data);
                 $scope.player = res.data
@@ -163,11 +162,11 @@
     const setGameBingo = () => {
         getRoomGame()
         let playerRoom = $scope.playerLoad
-        // console.log(playerRoom);
+            // console.log(playerRoom);
         if (playerRoom.numPlayer == playerRoom.readyPlayer) {
             let randomMonth = $scope.numAll[Math.floor(Math.random() * $scope.numAll.length)];
             // console.log("randomMonth", randomMonth);
-            setTimeout(function () {
+            setTimeout(function() {
                 let model = {
                     id_room: roomService.getIdRoom(),
                     number: randomMonth
@@ -193,7 +192,6 @@
             res.data.filter(e => {
                 e.number = Number(e.number)
             })
-
             $scope.randomGame = res.data;
             tableBingo()
         })
@@ -202,14 +200,12 @@
     const tableBingo = () => {
         // let random = [24, 5, 9, 56, 78, 66, 33, 41, 30, 4, 21, 71, 50];
         let random = $scope.randomGame;
-        let tempNumAll = [];
         let positionIndex = [];
         random.forEach(e => {
             let where = $scope.tablenum.indexOf(e.number)
             if (where != -1) {
                 positionIndex.push(where)
             }
-            //  console.log("positionIndex" , positionIndex);
         });
 
         $scope.myTable.forEach(e => {
@@ -221,18 +217,22 @@
             })
         })
 
-        /** ทำต่อ */
-        $scope.numAll.forEach(e => {
-            let j = $scope.tablenum.indexOf(e)
-            if (j == -1) {
-                console.log(e);
+        // set NumAll ใหม่ ตัดที่ถูกสุ่มไปแล้ว
+        setNewNumAll()
+    }
 
+    const setNewNumAll = () => {
+        let randomGame = []
+        let tempNumAll = [];
+        $scope.randomGame.forEach(e => randomGame.push(e.number))
+
+        $scope.numAll.forEach(e => {
+            let j = randomGame.indexOf(e)
+            if (j == -1) {
                 tempNumAll.push(e)
             }
         })
-
-        // $scope.numAll = tempNumAll
-
+        $scope.numAll = tempNumAll
     }
 
     const getMe = () => {
