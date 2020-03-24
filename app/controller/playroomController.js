@@ -14,7 +14,8 @@
         id_room: roomService.getIdRoom(),
         id_player: playerService.getIdPlayer(),
         readyOrNot: null,
-        status: null
+        status: null,
+        bingo: null,
     };
 
 
@@ -128,22 +129,38 @@
 
     const getPlayer = () => {
         let IdRoom = roomService.getIdRoom();
+        let log = []
         $http.post(webConfig.webApi + "playerAccRoom/getPlayerAccRoomService.php", IdRoom).then((res) => {
             // console.log("res.data", res.data);
+            log = []
             $scope.player = res.data
+            $scope.player.forEach(e => {
+                if (e.bingo == "true") {
+                    log.push(e)
+                }
+            })
+            EndGame(log)
             setPlayerLoad($scope.player);
             setGameBingo()
             getMe();
         })
-        setInterval(function() {
+        $scope.setInterval = setInterval(function() {
+            log = []
             $http.post(webConfig.webApi + "playerAccRoom/getPlayerAccRoomService.php", IdRoom).then((res) => {
                 // console.log("res.data", res.data);
                 $scope.player = res.data
+                $scope.player.forEach(e => {
+                    if (e.bingo == "true") {
+                        log.push(e)
+                    }
+                })
+                EndGame(log)
                 setPlayerLoad($scope.player);
                 setGameBingo()
                 getMe();
             })
         }, 1960);
+        //  1960
     }
 
     const setPlayerLoad = (res) => {
@@ -161,18 +178,19 @@
     /** เมื่อทุกคนพร้อมเกมจะเริ่ม */
     const setGameBingo = () => {
         getRoomGame()
-        let playerRoom = $scope.playerLoad
-            // console.log(playerRoom);
+        let playerRoom = $scope.playerLoad;
+        // console.log(playerRoom);
         if (playerRoom.numPlayer == playerRoom.readyPlayer) {
             let randomMonth = $scope.numAll[Math.floor(Math.random() * $scope.numAll.length)];
             // console.log("randomMonth", randomMonth);
             setTimeout(function() {
-                let model = {
+                let modelSave = {
                     id_room: roomService.getIdRoom(),
                     number: randomMonth
-                }
-                if ($scope.player[0].id == playerService.getIdPlayer()) {
-                    $http.post(webConfig.webApi + "room/addRoomGameService.php", model).then((res) => {
+                };
+
+                if (Number($scope.player[0].id_player) == playerService.getIdPlayer()) {
+                    $http.post(webConfig.webApi + "room/addRoomGameService.php", modelSave).then((res) => {
                         // console.log("res.data", res.data);
                         $scope.model.status = "false"
                     })
@@ -198,7 +216,8 @@
     }
 
     const tableBingo = () => {
-        // let random = [24, 5, 9, 56, 78, 66, 33, 41, 30, 4, 21, 71, 50];
+        setMyTable(playRoomService.SessionPlayRoom().number)
+            // let random = [24, 5, 9, 56, 78, 66, 33, 41, 30, 4, 21, 71, 50];
         let random = $scope.randomGame;
         let positionIndex = [];
         random.forEach(e => {
@@ -211,9 +230,9 @@
         $scope.myTable.forEach(e => {
             positionIndex.forEach(i => {
                 var filteredObj = e.find(x => x.index == i)
-                if (filteredObj) {
+                if (filteredObj)
                     filteredObj.is_find = true
-                }
+
             })
         })
 
@@ -233,6 +252,105 @@
             }
         })
         $scope.numAll = tempNumAll
+        checkBingo()
+    }
+
+    //เช็คว่าบิงโกยัง
+    const checkBingo = () => {
+        // console.log("myTable", $scope.myTable);
+        let myTable = []
+        $scope.myTable.forEach(e => {
+            e.forEach(x => {
+                myTable.push(x)
+            })
+        });
+        // เงื่อนไข
+        if (true) {
+            // เงื่อนไข คอลัมน์ 
+            if (myTable[0].is_find && myTable[1].is_find && myTable[2].is_find && myTable[3].is_find && myTable[4].is_find) {
+                $scope.model.bingo = "true"; //คอลัมน์ 1
+                Bingo()
+            }
+            if (myTable[5].is_find && myTable[6].is_find && myTable[7].is_find && myTable[8].is_find && myTable[9].is_find) {
+                $scope.model.bingo = "true"; //คอลัมน์ 2
+                Bingo()
+            }
+            if (myTable[10].is_find && myTable[11].is_find && myTable[12].is_find && myTable[13].is_find && myTable[14].is_find) {
+                $scope.model.bingo = "true"; //คอลัมน์ 3
+                Bingo()
+            }
+            if (myTable[15].is_find && myTable[16].is_find && myTable[17].is_find && myTable[18].is_find && myTable[19].is_find) {
+                $scope.model.bingo = "true"; //คอลัมน์ 4
+                Bingo()
+            }
+            if (myTable[20].is_find && myTable[21].is_find && myTable[22].is_find && myTable[23].is_find && myTable[24].is_find) {
+                $scope.model.bingo = "true"; //คอลัมน์ 5
+                Bingo()
+            }
+
+            // เงื่อนไข แถว 
+            if (myTable[0].is_find && myTable[5].is_find && myTable[10].is_find && myTable[15].is_find && myTable[20].is_find) {
+                $scope.model.bingo = "true"; //แถว 1
+                Bingo()
+            }
+            if (myTable[1].is_find && myTable[6].is_find && myTable[11].is_find && myTable[16].is_find && myTable[21].is_find) {
+                $scope.model.bingo = "true"; //แถว 2
+                Bingo()
+            }
+            if (myTable[2].is_find && myTable[7].is_find && myTable[12].is_find && myTable[17].is_find && myTable[22].is_find) {
+                $scope.model.bingo = "true"; //แถว 3
+                Bingo()
+            }
+            if (myTable[3].is_find && myTable[8].is_find && myTable[13].is_find && myTable[18].is_find && myTable[23].is_find) {
+                $scope.model.bingo = "true"; //แถว 4
+                Bingo()
+            }
+            if (myTable[4].is_find && myTable[9].is_find && myTable[14].is_find && myTable[19].is_find && myTable[24].is_find) {
+                $scope.model.bingo = "true"; //แถว 5
+                Bingo()
+            }
+
+
+            // เงื่อนไข 4 มุม 
+            if (myTable[0].is_find && myTable[4].is_find && myTable[20].is_find && myTable[24].is_find) {
+                $scope.model.bingo = "true"; //4 มุม นอก
+                Bingo()
+            }
+            if (myTable[6].is_find && myTable[8].is_find && myTable[16].is_find && myTable[18].is_find) {
+                $scope.model.bingo = "true"; //4 มุม ใน
+                Bingo()
+            }
+
+
+        }
+
+    }
+    const Bingo = () => {
+        // console.log("$scope.model", $scope.model);
+        $http.post(webConfig.webApi + "bingo/bingoService.php", $scope.model)
+    }
+
+    const EndGame = (data) => {
+        if (data.length > 0) {
+            clearInterval($scope.setInterval);
+            // console.log(data);
+            let name = []
+            data.forEach(e => {
+                name.push(e.user)
+            });
+            alert("จบเกม " + name + " BINGO");
+            let model = {
+                id_room: roomService.getIdRoom(),
+                id_par: roomService.getId()
+            };
+            // console.log("model", model);
+
+            $http.post(webConfig.webApi + "bingo/endGameBingoService.php", model);
+            sessionStorage.removeItem("room");
+            sessionStorage.removeItem("playRoom");
+            $location.path("/room");
+        }
+
     }
 
     const getMe = () => {

@@ -13,6 +13,8 @@ try {
     par.id,
     par.status,
     par.id_room,
+    par.bingo,
+    par.id_player,
     p.user
     FROM player_acc_room AS par 
     INNER JOIN player AS p ON par.id_player = p.id
